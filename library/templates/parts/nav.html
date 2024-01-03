@@ -5,6 +5,7 @@
       <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
+
     
     
       {% if user.is_authenticated %}
@@ -17,7 +18,12 @@
           <li class="nav-item d-none d-sm-inline-block">
               <a href="{% url 'lib:logout' %}" class="nav-link">Logout</a>
           </li>
-      {% endif %}
+     
+        {% else %}
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="{% url 'lib:store' %}" class="nav-link">Home</a>
+    </li>
+         {% endif %}
   </ul>
    
 

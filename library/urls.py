@@ -6,13 +6,14 @@ app_name = 'lib'
 
 urlpatterns = [
 
-    
-
+   
     path("", views.stor , name= 'store'),
 
     path("login", views.user_login ,name= 'login'),
 
     path("logout", views.user_logout ,name= 'logout'),
+
+    path("profile", views.profile ,name= 'profile'),
 
     path("index/", views.index , name= 'index'),
 

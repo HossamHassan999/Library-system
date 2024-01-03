@@ -9,8 +9,9 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
         </div>
+        <img id="profile-image" src="https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png" alt="Profile Picture">
         <div class="info">
-          <a href="#" class="d-block">{{ request.user }}</a>
+          <a href="{% url 'lib:profile' %}" class="d-block">{{ request.user }}</a>
         </div>
       </div>
 

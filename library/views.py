@@ -52,6 +52,8 @@ def index(request  ):
 
 def index_cat(request , id  ):
 
+   
+
     context = {
 
         'AllBooks': Books.objects.all(),
@@ -69,6 +71,10 @@ def index_cat(request , id  ):
         'Soldsum' : Books.objects.filter(status="تم بيعه").aggregate(total_borrowed_price=Sum('price'))['total_borrowed_price'],
 
         'Tasnif' : Tasnif.objects.all(),
+
+        'Tasnifforuser': Tasnif.objects.filter(books__status='متاح'),
+
+
 
         'Tas' : Books.objects.filter(category = id),
                        
@@ -225,3 +231,17 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('http://127.0.0.1:8000/')
+
+
+@login_required
+def profile(request):
+
+
+    context={
+
+        'profile': Profile.objects.all()
+    }
+
+
+
+    return render(request , 'Profile.html'  , context )
