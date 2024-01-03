@@ -6,7 +6,15 @@ app_name = 'lib'
 
 urlpatterns = [
 
-    path("", views.index , name= 'index'),
+    
+
+    path("", views.stor , name= 'store'),
+
+    path("login", views.user_login ,name= 'login'),
+
+    path("logout", views.user_logout ,name= 'logout'),
+
+    path("index/", views.index , name= 'index'),
 
     path("Books/", views.home , name= 'Books'),
 

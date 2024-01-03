@@ -120,6 +120,15 @@
                         <h5 class="description-header text-dark">{{X.status}}</h5>
                         <span class="description-text">الحالة</span>
                       </div>
+                     {% if X.status == 'متاح' %} 
+
+                      <div class="text-right">
+                        <a href="{% url 'lib:buying' id=X.id  %}" class="btn btn-sm btn-primary">
+                          <i class="fas fa-book"></i>شراء 
+                        </a>
+                      </div>
+                      
+                    {% endif %}
                       <!-- /.description-block -->
                     </div>
                         <!-- /.col -->

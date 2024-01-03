@@ -3,7 +3,11 @@ from .models import *
 from django.db.models import Sum
 from .forms import BookForm
 from django.http import response
+from django.contrib.auth import authenticate, login as auth_login 
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def index(request  ):
 
     if request.method == 'POST':
@@ -75,8 +79,9 @@ def index_cat(request , id  ):
 
 
 
-
+@login_required
 def home(request):
+
 
     search=Books.objects.all()
 
@@ -100,17 +105,20 @@ def home(request):
 
 
 
+
     return render(request ,'books.html' , context )
+    
 
 
 
+@login_required
 def success(request):
 
     return render(request ,'success_page.html')
 
 
 
-
+@login_required
 def delete(request , id):
 
 
@@ -125,7 +133,7 @@ def delete(request , id):
 
     return render(request ,'delete.html')
 
-
+@login_required
 def update(request , id ):
 
     book_id= Books.objects.get(id=id)
@@ -160,3 +168,60 @@ def Book_buy(request , id):
 
 
     return render(request , 'buy_book.html' , context )
+
+
+
+def stor(request):
+
+    search=Books.objects.all()
+
+    name = None
+
+    if 'search_name1' in request.GET:
+
+        name = request.GET['search_name1']
+
+        if name :
+
+            search = search.filter(name__icontains=name)
+
+
+        
+    context = {
+
+        'user' : request.user,
+
+        'AllBooks': Books.objects.filter(status="متاح"),
+
+        'Tasnif' : Tasnif.objects.all(),
+         
+        'search' : search
+
+                   
+    }
+
+    return render(request, 'Store.html' , context)
+
+
+def user_login(request):
+
+    error_message = None
+
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            auth_login(request, user)
+            return redirect('index/')
+        else:
+            error_message = 'Invalid username or password'
+
+    return render(request, 'login.html', {'error_message': error_message})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('http://127.0.0.1:8000/')
